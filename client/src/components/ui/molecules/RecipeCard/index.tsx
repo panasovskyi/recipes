@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styles from "./RecipeCard.module.scss";
+import { useState } from 'react';
 
 type Props = {
   id: string;
@@ -24,11 +25,17 @@ export const RecipeCard: React.FC<Props> = ({
   subcategory,
   imageUrl,
 }) => {
+  const [imageError, setImageError] = useState(false);
   return (
     <article className={styles.card}>
       <div className={styles.imageWrapper}>
-        {imageUrl ? (
-          <img src={imageUrl} className={styles.cardImage} alt={title} />
+        {imageUrl && !imageError ? (
+          <img
+            src={imageUrl}
+            className={styles.cardImage}
+            alt={title}
+            onError={() => setImageError(true)}
+          />
         ) : (
           placeholder
         )}
