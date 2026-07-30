@@ -1,14 +1,6 @@
-import { MainCategories, SubCategories, type Recipe } from '@/types/recipe';
+import { CATEGORY_MAP, SUBCATEGORY_MAP, type Recipe } from '@/types/recipe';
 import styles from './RecipesGrid.module.scss';
 import { RecipeCard } from '@/components/ui/molecules/RecipeCard';
-
-const CATEGORY_MAP = new Map(MainCategories.map((cat) => [cat.slug, cat.name]));
-
-const SUBCATEGORY_MAP = new Map(
-  Object.values(SubCategories)
-    .flat()
-    .map((sub) => [sub.slug, sub]),
-);
 
 type Props = {
   recipes: Recipe[];

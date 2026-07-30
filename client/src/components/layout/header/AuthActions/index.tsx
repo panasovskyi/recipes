@@ -7,7 +7,11 @@ import { api } from "@/api";
 import styles from "./AuthActions.module.scss";
 import { Button } from "@/components/ui/atoms/Button";
 
-export const AuthActions = () => {
+type Props = {
+  onLinkClick?: () => void;
+};
+
+export const AuthActions: React.FC<Props> = ({ onLinkClick }) => {
   const { user, isAuthenticated, isLoading } = useAppSelector(
     (state) => state.auth,
   );
@@ -18,6 +22,10 @@ export const AuthActions = () => {
     try {
       await api.auth.logout();
       navigate("/login");
+
+      if (onLinkClick) {
+        onLinkClick();
+      }
     } catch {
       console.log("Помилка");
     } finally {
@@ -36,10 +44,10 @@ export const AuthActions = () => {
   if (!isAuthenticated && !user) {
     return (
       <div className={styles.actions}>
-        <Link to="/login" className={styles.loginLink}>
+        <Link to="/login" onClick={onLinkClick} className={styles.loginLink}>
           Увійти
         </Link>
-        <Link to="/registration" className={styles.registerBtn}>
+        <Link to="/registration" onClick={onLinkClick} className={styles.registerBtn}>
           Реєстрація
         </Link>
       </div>
@@ -48,11 +56,11 @@ export const AuthActions = () => {
 
   return (
     <div className={styles.actions}>
-      <Link to="/create-recipe" className={styles.addRecipeBtn}>
+      <Link to="/create-recipe" onClick={onLinkClick} className={styles.addRecipeBtn}>
         <PlusIcon />
         Додати рецепт
       </Link>
-      <Link to="/profile" className={styles.btnIcon} aria-label="Профіль">
+      <Link to="/profile" onClick={onLinkClick} className={styles.btnIcon} aria-label="Профіль">
         <UserIcon />
       </Link>
       <Button

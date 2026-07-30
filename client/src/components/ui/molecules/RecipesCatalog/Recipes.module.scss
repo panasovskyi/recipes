@@ -21,6 +21,13 @@
   align-items: start;
 }
 
+.paginationWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
+}
+
 @include tablet {
   .page {
     gap: 24px;

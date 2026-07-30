@@ -9,6 +9,7 @@ import {
 import { RecipesHeader } from "@/components/ui/molecules/RecipesCatalog/components/recipes-header";
 import { RecipesSidebar } from "@/components/ui/molecules/RecipesCatalog/components/recipes-sidebar";
 import { RecipesContent } from "@/components/ui/molecules/RecipesCatalog/components/recipes-content";
+import { Pagination } from "@/components/ui/molecules/Pagination";
 
 interface RecipesCatalogProps {
   recipes: Recipe[];
@@ -26,6 +27,9 @@ interface RecipesCatalogProps {
   mainLinkTitle: string;
   mainLinkHref: string;
   title: string;
+
+  totalPages: number;
+  count: number;
 }
 
 export const RecipesCatalog: React.FC<RecipesCatalogProps> = ({
@@ -43,12 +47,15 @@ export const RecipesCatalog: React.FC<RecipesCatalogProps> = ({
   selectSubcategory,
   resetSubcategory,
   resetAll,
+
+  totalPages,
+  count,
 }) => {
   return (
     <div className={styles.page}>
       <RecipesHeader
         title={title}
-        count={recipes.length || 0}
+        count={count}
         mainLinkHref={mainLinkHref}
         mainLinkTitle={mainLinkTitle}
         currentBreadcrumb={currentBreadcrumb}
@@ -71,6 +78,12 @@ export const RecipesCatalog: React.FC<RecipesCatalogProps> = ({
           resetAll={resetAll}
           isLoading={isLoading}
           error={error}
+        />
+      </div>
+
+      <div className={styles.paginationWrapper}>
+        <Pagination
+          totalPages={totalPages}
         />
       </div>
     </div>

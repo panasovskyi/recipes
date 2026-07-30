@@ -24,7 +24,7 @@ export const Header = () => {
       {isMenuOpen && (
         <div className={styles.mobileMenu}>
           <Navigation onLinkClick={() => setIsMenuOpen(false)} />
-          <AuthActions />
+          <AuthActions onLinkClick={() => setIsMenuOpen(false)} />
         </div>
       )}
     </header>

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { MainCategories, SubCategories } from "../../types/recipe";
+import { CATEGORY_MAP, SUBCATEGORY_MAP } from "../../types/recipe";
 import styles from "./RecipeDetails.module.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/store";
@@ -15,14 +15,6 @@ import { Ingredients } from "@/pages/recipe-details/components/Ingredients";
 import { QuickInfo } from "@/pages/recipe-details/components/QuickInfo";
 import { Overview } from "@/pages/recipe-details/components/Overview";
 import { Instructions } from "@/pages/recipe-details/components/Instructions";
-
-const CATEGORY_MAP = new Map(MainCategories.map((cat) => [cat.slug, cat.name]));
-
-const SUBCATEGORY_MAP = new Map(
-  Object.values(SubCategories)
-    .flat()
-    .map((sub) => [sub.slug, sub]),
-);
 
 export const RecipeDetailsPage = () => {
   const { error, isLoading, recipe } = useAppSelector(

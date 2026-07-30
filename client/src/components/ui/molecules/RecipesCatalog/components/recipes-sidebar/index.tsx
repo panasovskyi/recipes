@@ -45,14 +45,16 @@ export const RecipesSidebar: React.FC<Props> = ({
           onReset={resetCategory}
         />
 
-        <FilterGroup
-          title="Підкатегорія"
-          resetButtonText="Всі"
-          currentParam={subcategory}
-          categories={currentSubcategories}
-          onSelect={setSubcategory}
-          onReset={resetSubcategory}
-        />
+        {category !== "drinks" && category && (
+          <FilterGroup
+            title="Підкатегорія"
+            resetButtonText="Всі"
+            currentParam={subcategory}
+            categories={currentSubcategories}
+            onSelect={setSubcategory}
+            onReset={resetSubcategory}
+          />
+        )}
       </div>
     </aside>
   );

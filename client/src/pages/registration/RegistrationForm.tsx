@@ -12,7 +12,7 @@ import styles from './Registration.module.scss';
 import { api } from '@/api';
 
 type Props = {
-  onSuccess: (val: boolean) => void;
+  onSuccess: () => void;
 }
 
 export const RegistrationForm: React.FC<Props> = ({ onSuccess }) => {
@@ -36,7 +36,7 @@ export const RegistrationForm: React.FC<Props> = ({ onSuccess }) => {
   const onSubmit = async (data: RegisterFormValues) => {
     try {
       await api.auth.register(data);
-      onSuccess(true);
+      onSuccess();
     } catch (err) {
       const error = err as AxiosError<ServerError>;
       setError("root", {

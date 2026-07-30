@@ -18,6 +18,7 @@ import { ProtectedRoute } from '@/components/routes';
 import styles from './App.module.scss';
 import { ProfileFavoritesPage } from '@/pages/fav-recipes';
 import { RecipesPage } from '@/pages/recipes';
+import { ProfileMyRecipesPage } from '@/pages/my-recipes';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -64,7 +65,7 @@ function App() {
 
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/profile/saved-recipes" element={<ProfileFavoritesPage />} />
-            <Route path="/profile/my-recipes" element={<ProfileFavoritesPage />} />
+            <Route path="/profile/my-recipes" element={<ProfileMyRecipesPage />} />
             {/* <Route path="/profile/settings" element={<ProfileSettingsPage />} />
             <Route path="/profile/my-recipes" element={<MyRecipesPage />} /> */}
           </Route>
