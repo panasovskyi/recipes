@@ -1,0 +1,38 @@
+// src/styles/_variables.scss
+
+// Палітра бренду
+$primary-color: #e65c00;
+$primary-hover: #cc5200;
+$primary-light: rgba(230, 92, 0, 0.08);
+
+// Текст
+$text-main: #222222;
+$text-muted: #666666;
+$text-light: #999999;
+
+// Фон та елементи
+$bg-main: #ffffff;
+$bg-card: #f9f9f9;
+$bg-disabled: #f5f5f5;      // НОВЕ: фон для заблокованих інпутів/кнопок
+$border-color: #e0e0e0;
+$border-focus: #b34600;
+
+// Системні кольори (для валідації форм)
+$color-error: #dc3545;
+$color-success: #198754;
+
+// Скруглення та Тіні
+$radius-sm: 8px;
+$radius-md: 12px;
+$radius-lg: 16px;           // НОВЕ: для великих карток (authCard, category)
+$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+$shadow-md: 0 4px 20px rgba(0, 0, 0, 0.05);
+$shadow-lg: 0 8px 30px rgba(230, 92, 0, 0.15); // НОВЕ: соковита тінь для ховеру кнопки створення рецепта
+
+// Анімації
+$transition-fast: 0.2s ease;
+
+// Медіа-запити (Breakpoints) — НОВЕ: щоб не хардкодити px у файлах
+$breakpoint-mobile: 480px;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1024px;

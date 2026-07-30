@@ -1,0 +1,10 @@
+@use '../../../../styles/variables' as *;
+
+.field__label {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  color: $text-main;
+  cursor: pointer;
+  user-select: none;
+}

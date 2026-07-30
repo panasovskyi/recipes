@@ -1,0 +1,69 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.quickInfo {
+  background-color: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: $radius-md;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  min-width: 300px;
+
+  &__title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 16px 0;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-size: 15px;
+    border-bottom: 1px dashed $border-color;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__label {
+    color: $text-muted;
+  }
+
+  &__value {
+    font-weight: 600;
+  }
+
+  &__actions {
+   display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+  }
+}
+
+@include tablet {
+  .quickInfo {
+    min-width: 0;
+  }
+}
+
+@include mobile {
+  .quickInfo {
+    padding: 20px;
+  }
+
+  .quickInfo__actions {
+    grid-template-columns: 1fr;
+  }
+}

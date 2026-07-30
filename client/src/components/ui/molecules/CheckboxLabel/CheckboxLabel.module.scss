@@ -1,0 +1,21 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.label {
+  font-size: 16px;
+  transition: color $transition-fast;
+}
+
+@include mobile {
+  .checkboxLabel {
+    padding: 8px 0;
+  }
+}

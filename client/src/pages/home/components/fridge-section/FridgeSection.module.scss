@@ -1,0 +1,42 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.fridgeSection {
+  background-color: $bg-card;
+  border: 2px dashed $border-color;
+  border-radius: $radius-lg;
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.fridgeContent {
+  max-width: 600px;
+  margin: 0 auto;
+
+  h2 {
+    font-size: 24px;
+    font-weight: 800;
+    color: $text-main;
+    margin-bottom: 8px;
+  }
+
+  p {
+    font-size: 15px;
+    color: $text-muted;
+    margin-bottom: 24px;
+  }
+}
+
+@include mobile {
+  .fridgeSection {
+    padding: 28px 16px;
+  }
+
+  .fridgeContent h2 {
+    font-size: 20px;
+  }
+
+  .fridgeContent p {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,23 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.ingredientsHeader {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+  padding-bottom: 4px;
+
+  span {
+    font-size: 14px;
+    font-weight: 600;
+    color: $text-main;
+    user-select: none;
+  }
+}
+
+@include mobile {
+  .ingredientsHeader {
+    display: none;
+  }
+}

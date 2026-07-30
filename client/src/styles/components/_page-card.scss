@@ -1,0 +1,40 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+
+.page {
+  max-width: 640px;
+  margin: 60px auto;
+  padding: 32px 24px;
+  background-color: $bg-main;
+  border: 1px solid $border-color;
+  border-radius: $radius-md;
+  box-shadow: $shadow-sm;
+  font-family: system-ui, -apple-system, sans-serif;
+
+  &__title {
+    font-size: 28px;
+    font-weight: 800;
+    text-align: center;
+    color: $text-main;
+    margin: 0 0 24px 0;
+    letter-spacing: -0.5px;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+@include mobile {
+  .page {
+    margin: 24px auto;
+    padding: 24px 16px;
+    border-radius: $radius-sm;
+
+    &__title {
+      font-size: 22px;
+    }
+  }
+}

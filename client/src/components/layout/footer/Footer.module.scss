@@ -1,0 +1,94 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.footer {
+  flex: 0 0 auto;
+  background-color: $bg-card;
+  border-top: 1px solid $border-color;
+  color: $text-muted;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 40px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 48px 20px 32px;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tagline {
+  font-size: 14px;
+  color: $text-muted;
+  max-width: 280px;
+  line-height: 1.5;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.columnTitle {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: $text-light;
+}
+
+.column ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.column a {
+  font-size: 14px;
+  color: $text-muted;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $primary-color;
+  }
+}
+
+.bottom {
+  border-top: 1px solid $border-color;
+  padding: 16px 20px;
+  text-align: center;
+  font-size: 13px;
+  color: $text-light;
+}
+
+@include tablet {
+  .inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    padding: 40px 20px 24px;
+  }
+
+  .brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@include mobile {
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 32px 16px 20px;
+  }
+
+  .tagline {
+    max-width: none;
+  }
+}

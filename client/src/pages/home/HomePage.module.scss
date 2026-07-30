@@ -1,0 +1,22 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.home {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+@include tablet {
+  .home {
+    gap: 48px;
+  }
+}
+
+@include mobile {
+  .home {
+    gap: 32px;
+  }
+}

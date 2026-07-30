@@ -1,0 +1,15 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.radioGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 4px 0; 
+}
+
+@include mobile {
+  .radioGroup {
+    gap: 10px;
+  }
+}

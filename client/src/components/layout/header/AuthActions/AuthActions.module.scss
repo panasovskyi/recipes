@@ -1,0 +1,75 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.loginLink {
+  font-size: 14px;
+  font-weight: 600;
+  color: $text-main;
+  padding: 8px 4px;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $primary-color;
+  }
+}
+
+.registerBtn {
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background-color: $primary-color;
+  padding: 9px 18px;
+  border-radius: $radius-sm;
+  transition: background-color $transition-fast, transform 0.1s ease;
+
+  &:hover {
+    background-color: $primary-hover;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.addRecipeBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: $primary-color;
+  background-color: $primary-light;
+  padding: 9px 16px;
+  border-radius: $radius-sm;
+  border: 1px solid transparent;
+  transition: background-color $transition-fast, border-color $transition-fast, transform 0.1s ease;
+
+  &:hover {
+    border-color: $primary-color;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+@include tablet {
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .addRecipeBtn,
+  .registerBtn {
+    justify-content: center;
+  }
+}

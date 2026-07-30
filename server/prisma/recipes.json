@@ -1,0 +1,189 @@
+[
+  {
+    "title": "Рулетики з рибою",
+    "description": "Ніжні та соковиті рулетики з обсмаженого кабачка з начинкою зі слабосолоної червоної риби та вершкового крем-сиру. Ідеальна легка закуска чи вечеря.",
+    "mainCategory": "lunch_dinner",
+    "subCategory": "fish",
+    "prepTime": 10,
+    "cookTime": 10,
+    "servings": 1,
+    "imageUrl": "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?q=80&w=1000&auto=format&fit=crop",
+    "nutritionalValue": {
+      "calories": 450,
+      "proteins": 245,
+      "fats": 36,
+      "carbohydrates": 6
+    },
+    "ingredients": [
+      { "name": "Кабачок", "amount": "100 г" },
+      { "name": "Червона риба слабосолона", "amount": "80 г" },
+      { "name": "Крем‑сир", "amount": "50 г" },
+      { "name": "Кунжут", "amount": "10 г" },
+      { "name": "Олія", "amount": "15 г" }
+    ],
+    "instructions": [
+      { "description": "Кабачок нарізати вздовж тонким листом." },
+      { "description": "Обсмажити листи на олії 1–2 хвилини." },
+      { "description": "Тонко нарізати рибу." },
+      {
+        "description": "На лист кабачка покласти червону рибу і трохи сиру. Закрутити в рулет."
+      },
+      { "description": "Зафіксувати зубочисткою та посипати кунжутом." }
+    ]
+  },
+  {
+    "title": "Риба з овочами за східним рецептом",
+    "description": "Ароматний хек, запечений із лимоном та спеціями, у поєднанні з соковитою броколі, імбиром, часником і пікантним перцем чилі.",
+    "mainCategory": "lunch_dinner",
+    "subCategory": "fish",
+    "prepTime": 15,
+    "cookTime": 25,
+    "servings": 1,
+    "imageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=1000&auto=format&fit=crop",
+    "nutritionalValue": {
+      "calories": 261,
+      "proteins": 47,
+      "fats": 7,
+      "carbohydrates": 0
+    },
+    "ingredients": [
+      { "name": "Хек", "amount": "250 г" },
+      { "name": "Броколі", "amount": "160 г" },
+      { "name": "Перець чилі", "amount": "10 г" },
+      { "name": "Імбир", "amount": "20 г" },
+      { "name": "Часник", "amount": "6 г" },
+      { "name": "Кокосова олія", "amount": "5 г" },
+      { "name": "Сік лимону", "amount": "5 г" },
+      { "name": "Спеції", "amount": "2 г" }
+    ],
+    "instructions": [
+      { "description": "Рибу натерти спеціями та додати лимонний сік." },
+      {
+        "description": "Запекти в духовій шафі 20 хвилин за температури 200 градусів."
+      },
+      {
+        "description": "Імбир, часник і перець чилі нарізати й обсмажити на сковороді з олією."
+      },
+      {
+        "description": "Додати подрібнену броколі, трохи води та тушкувати до м'якості броколі."
+      },
+      { "description": "Подавати з рибою." }
+    ]
+  },
+  {
+    "title": "Хек у сирному клярі",
+    "description": "Хрусткі та апетитні шматочки ніжного філе хека в золотистій сирно-яєчній скоринці. Швидка та ситна страва.",
+    "mainCategory": "lunch_dinner",
+    "subCategory": "fish",
+    "prepTime": 10,
+    "cookTime": 15,
+    "servings": 1,
+    "imageUrl": "https://images.unsplash.com/photo-1535399831218-d5bd36d1a6b3?q=80&w=1000&auto=format&fit=crop",
+    "nutritionalValue": {
+      "calories": 416,
+      "proteins": 47,
+      "fats": 20,
+      "carbohydrates": 9
+    },
+    "ingredients": [
+      { "name": "Хек", "amount": "150 г" },
+      { "name": "Сир твердий", "amount": "50 г" },
+      { "name": "Яйце", "amount": "50 г" },
+      { "name": "Борошно", "amount": "25 г" },
+      { "name": "Сіль", "amount": "2 г" },
+      { "name": "Спеції", "amount": "2 г" }
+    ],
+    "instructions": [
+      {
+        "description": "Філе хека посолити та поперчити за смаком. Нарізати порційними шматками."
+      },
+      { "description": "Збити яйце, змішати з натертим сиром, додати спеції." },
+      {
+        "description": "Шматочки риби обвалити в борошні. Потім вмочити в сирний кляр."
+      },
+      {
+        "description": "Обсмажити рибу з обох боків на розігрітій сухій антипригарній сковороді."
+      }
+    ]
+  },
+  {
+    "title": "Соба з горбушею",
+    "description": "Гречана локшина соба з ніжними шматочками горбуші, пасерованою цибулею, хрусткою селерою та соєвим соусом у східному стилі.",
+    "mainCategory": "lunch_dinner",
+    "subCategory": "fish",
+    "prepTime": 10,
+    "cookTime": 15,
+    "servings": 1,
+    "imageUrl": "https://images.unsplash.com/photo-1617093727343-374698b1b08d?q=80&w=1000&auto=format&fit=crop",
+    "nutritionalValue": {
+      "calories": 632,
+      "proteins": 34,
+      "fats": 20,
+      "carbohydrates": 81
+    },
+    "ingredients": [
+      { "name": "Соба", "amount": "100 г" },
+      { "name": "Горбуша", "amount": "80 г" },
+      { "name": "Цибуля", "amount": "75 г" },
+      { "name": "Селера", "amount": "30 г" },
+      { "name": "Соєвий соус", "amount": "60 г" },
+      { "name": "Кунжут", "amount": "5 г" },
+      { "name": "Олія", "amount": "15 г" }
+    ],
+    "instructions": [
+      {
+        "description": "Цибулю нарізати та обсмажити. Додати стебло селери та кунжут, смажити 3 хвилини."
+      },
+      {
+        "description": "Нарізати горбушу невеликими шматочками, додати до цибулі та смажити ще 3 хвилини."
+      },
+      {
+        "description": "Додати пів склянки води, соєвий соус і собу, тушкувати 5 хвилин."
+      }
+    ]
+  },
+  {
+    "title": "Скумбрія під сиром",
+    "description": "Запечене філе скумбрії під ніжним сметанно-гірчичним соусом із морквою, цибулею та сирною скоринкою. Подається з розсипчастим рисом.",
+    "mainCategory": "lunch_dinner",
+    "subCategory": "fish",
+    "prepTime": 15,
+    "cookTime": 25,
+    "servings": 1,
+    "imageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=1000&auto=format&fit=crop",
+    "nutritionalValue": {
+      "calories": 746,
+      "proteins": 53,
+      "fats": 37,
+      "carbohydrates": 47
+    },
+    "ingredients": [
+      { "name": "Філе скумбрії", "amount": "200 г" },
+      { "name": "Сметана 15%", "amount": "40 г" },
+      { "name": "Сир твердий", "amount": "40 г" },
+      { "name": "Рис", "amount": "50 г" },
+      { "name": "Гірчиця зерниста", "amount": "10 г" },
+      { "name": "Морква", "amount": "50 г" },
+      { "name": "Зелень", "amount": "5 г" },
+      { "name": "Сіль", "amount": "2 г" },
+      { "name": "Спеції", "amount": "2 г" },
+      { "name": "Цибуля", "amount": "40 г" }
+    ],
+    "instructions": [
+      {
+        "description": "Натерти морквину і нарізати цибулю. Обсмажити разом на а/п сухій сковорідці."
+      },
+      {
+        "description": "Викласти філе скумбрії на пергамент, додати соль та перець. Можна додати спеції для риби."
+      },
+      {
+        "description": "Змішати сметану, зелень та гірчицю. Змастити цим філе риби."
+      },
+      {
+        "description": "Викласти обсмажену цибулю та моркву поверх суміші зі сметаною та гірчицею. Посипати сиром і зеленню за смаком."
+      },
+      { "description": "Запікати в духовці за 180 градусів 20 хвилин." },
+      { "description": "Рис відварити та подавати як гарнір до риби." }
+    ]
+  }
+]

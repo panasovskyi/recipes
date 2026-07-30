@@ -1,0 +1,58 @@
+@use '../../../../../../styles/variables' as *;
+@use '../../../../../../styles/mixins' as *;
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: $text-light;
+
+  a {
+    color: $text-muted;
+    text-decoration: none;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+
+  span {
+    user-select: none;
+  }
+}
+
+.currentBreadcrumb {
+  color: $text-main;
+  font-weight: 600;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 800;
+  color: $text-main;
+  margin: 0;
+}
+
+.countText {
+  font-size: 14px;
+  color: $text-muted;
+  margin: 0;
+}
+
+@include mobile {
+  .title {
+    font-size: 24px;
+  }
+
+  .countText {
+    font-size: 13px;
+  }
+}

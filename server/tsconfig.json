@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "types": ["node"],
+    "target": "ES2022",
+    "module": "es2022",
+    "moduleResolution": "Bundler",
+    "rootDir": "./src",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@prisma-custom": ["./generated/prisma"]
+    },
+    "outDir": "./dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*", "src/prisma.ts"]
+}

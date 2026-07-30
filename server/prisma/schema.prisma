@@ -1,0 +1,131 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+ // output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum MainCategory {
+  lunch_dinner
+  breakfast
+  drinks
+  snacks
+}
+
+enum SubCategory {
+  soups
+  lenten_food
+  meat_dishes
+  salads
+  fish
+  fast_food
+  sweet
+  savory
+}
+
+model User {
+  id String @id @default(uuid())
+
+  login String @unique
+  email String @unique
+  password String
+
+  recipes Recipe[]
+  savedRecipes SavedRecipe[]
+
+  token Token?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Token {
+  id  String @unique @default(uuid())
+
+  refreshToken  String  @db.Text
+
+  userId  String  @unique
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Recipe {
+  id String @id @default(uuid())
+  slug String @unique
+
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  savedByUsers SavedRecipe[]
+
+  title String
+  description String @db.Text
+
+  mainCategory MainCategory
+  subCategory SubCategory?
+
+  ingredients Ingredient[]
+  instructions InstructionStep[]
+
+  prepTime Int
+  cookTime Int
+  servings Int
+
+  nutritionalValue Json?
+
+  imageUrl String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SavedRecipe {
+  id  String  @id @default(uuid())
+
+  userId  String
+  recipeId  String
+
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recipe Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, recipeId])
+}
+
+model Ingredient {
+  id String @id @default(uuid())
+
+  name String
+  amount String
+
+  recipeId String
+  recipe Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model InstructionStep {
+  id String @id @default(uuid())
+
+  stepNumber Int
+  description String @db.Text
+
+  recipeId String
+  recipe Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

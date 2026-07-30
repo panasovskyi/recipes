@@ -1,0 +1,21 @@
+@use '../../../../styles/variables' as *;
+
+.fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &__legend {
+    font-size: 20px;
+    font-weight: 700;
+    color: $text-main;
+    margin-bottom: 4px;
+    padding: 0;
+    letter-spacing: -0.3px;
+  }
+}

@@ -1,0 +1,21 @@
+import { favouriteController } from '@/controllers';
+import { validate } from '@/middlewares';
+import { authMiddleware } from '@/middlewares';
+import { errorCatcher } from '@/utils';
+import { getRecipeSchema } from '@/validations';
+import { Router } from 'express';
+
+export const favouriteRouter = Router();
+
+favouriteRouter.get(
+  "/recipe/saved",
+  authMiddleware,
+  errorCatcher(favouriteController.get)
+)
+
+favouriteRouter.post(
+  "/recipe/:recipeId/toggle-save",
+  authMiddleware,
+  validate(getRecipeSchema),
+  errorCatcher(favouriteController.toggle),
+);

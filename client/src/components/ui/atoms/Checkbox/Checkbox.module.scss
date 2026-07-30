@@ -1,0 +1,13 @@
+@use '../../../../styles/variables' as *;
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: $primary-color;
+  cursor: pointer;
+
+  &:checked + .label {
+    text-decoration: line-through;
+    color: $text-light;
+  }
+}

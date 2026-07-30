@@ -1,0 +1,44 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.recipesSection {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  h2 {
+    font-size: 26px;
+    font-weight: 800;
+    color: $text-main;
+  }
+}
+
+.seeAllLink {
+  font-size: 15px;
+  font-weight: 600;
+  color: $primary-color;
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $primary-hover;
+    text-decoration: underline;
+  }
+}
+
+@include mobile {
+  .sectionHeader {
+    flex-wrap: wrap;
+    gap: 8px;
+
+    h2 {
+      font-size: 20px;
+    }
+  }
+}

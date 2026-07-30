@@ -1,0 +1,16 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.searchForm {
+  display: flex;
+  width: 100%;
+  max-width: 700px;
+  gap: 12px;
+}
+
+@include mobile {
+  .searchForm {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

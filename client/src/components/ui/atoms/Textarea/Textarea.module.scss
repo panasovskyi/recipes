@@ -1,0 +1,32 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 15px;
+  color: $text-main;
+  background-color: $bg-main;
+  border: 1px solid $border-color;
+  border-radius: $radius-sm;
+  resize: vertical;
+  transition: border-color $transition-fast, box-shadow $transition-fast;
+
+  &::placeholder {
+    color: $text-light;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $border-focus;
+    box-shadow: 0 0 0 3px $primary-light;
+  }
+}
+
+@include mobile {
+  .textarea {
+    font-size: 16px;
+  }
+}

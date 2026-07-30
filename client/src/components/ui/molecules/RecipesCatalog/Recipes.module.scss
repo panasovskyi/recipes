@@ -1,0 +1,33 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.page {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  &__spinnerWrapper {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.contentLayout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+@include tablet {
+  .page {
+    gap: 24px;
+  }
+
+  .contentLayout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

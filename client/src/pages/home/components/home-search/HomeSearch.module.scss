@@ -1,0 +1,32 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.searchSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.tags {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tagsLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: $text-muted;
+  margin-right: 4px;
+}
+
+@include mobile {
+  .tagsLabel {
+    width: 100%;
+    text-align: center;
+    margin: 0 0 4px;
+  }
+}

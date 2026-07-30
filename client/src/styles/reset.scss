@@ -1,0 +1,66 @@
+// reset.scss
+
+// 1. Усі елементи тепер коректно рахують ширину разом із паддінгами й бордерами
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+// 2. Налаштування плавного скролу та базової поведінки HTML
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%; // Запобігає зміні розміру шрифту при зміні орієнтації на iOS
+}
+
+// 3. Базові налаштування для body (прибираємо дефолтні маржини та покращуємо рендеринг шрифтів)
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// 4. Скидання для елементів форм (інпути, кнопки, текстереа за замовчуванням не наслідують шрифти body)
+input,
+//button,
+textarea,
+select {
+  font: inherit; // Змушує інпути використовувати той самий шрифт, що й уся сторінка
+  color: inherit;
+  background: transparent;
+  border: none;
+}
+
+// 5. Полегшуємо роботу з картинками
+img,
+picture,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+// 6. Скидання списків та посилань (корисно для навігації та меню)
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+// 7. Специфічний фікс для textarea, щоб вона не розтягувала батьківські контейнери
+textarea {
+  resize: vertical; // Дозволяє тягнути лише вниз, щоб не ламати дизайн по ширині
+}
+
+// 8. Видаляємо дефолтні рамки для fieldset
+fieldset {
+  border: none;
+  min-width: 0;
+}

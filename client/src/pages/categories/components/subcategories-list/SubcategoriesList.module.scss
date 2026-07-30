@@ -1,0 +1,62 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.subChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background-color: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: background-color $transition-fast, border-color $transition-fast, transform 0.1s ease;
+
+  &:hover {
+    background-color: $primary-light;
+    border-color: transparent;
+
+    .subName {
+      color: $primary-color;
+    }
+
+    .arrowIcon {
+      color: $primary-color;
+      transform: translateX(2px);
+    }
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.subName {
+  font-size: 13px;
+  font-weight: 600;
+  color: $text-muted;
+  transition: color $transition-fast;
+}
+
+.arrowIcon {
+  font-size: 15px;
+  line-height: 1;
+  color: $text-light;
+  transition: color $transition-fast, transform $transition-fast;
+}
+
+@include mobile {
+  .subChip {
+    padding: 6px 10px;
+  }
+
+  .subName {
+    font-size: 12px;
+  }
+}

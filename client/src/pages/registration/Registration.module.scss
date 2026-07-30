@@ -1,0 +1,67 @@
+@use '../../styles/components/page-card' as *;
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 24px 12px 8px;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: $color-success;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 800;
+  color: $text-main;
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: $text-muted;
+  line-height: 1.5;
+  max-width: 380px;
+  margin: 0 0 28px;
+}
+
+.loginBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 160px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background-color: $primary-color;
+  padding: 12px 24px;
+  border-radius: $radius-sm;
+  box-shadow: $shadow-lg;
+  transition: background-color $transition-fast, transform 0.1s ease;
+
+  &:hover {
+    background-color: $primary-hover;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+@include mobile {
+  .loginBtn {
+    width: 100%;
+  }
+}

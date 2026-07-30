@@ -1,0 +1,43 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: $primary-color;
+  flex-shrink: 0;
+}
+
+.wordmark {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: $text-main;
+  white-space: nowrap;
+}
+
+.accent {
+  color: $primary-color;
+}
+
+@include mobile {
+  .mark {
+    width: 32px;
+    height: 32px;
+  }
+
+  .wordmark {
+    font-size: 18px;
+  }
+}
