@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './RecipesSection.module.scss';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { Spinner } from '@/components/ui/atoms/Spinner';
@@ -11,14 +11,11 @@ export const RecipesSection = () => {
   const { error, isLoading, recipes } = useAppSelector(
       (state) => state.recipes.popularRecipes,
   );
-  const [searchParams] = useSearchParams();
-  const limit = searchParams.get("limit") || undefined;
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchPopularRecipes({ limit }));
-  }, [dispatch, limit]);
+    dispatch(fetchPopularRecipes({}));
+  }, [dispatch]);
 
 
   return (

@@ -1,13 +1,23 @@
 import { api } from "@/api";
 import type { ServerError } from "@/types/errors";
 import type { Recipe, RecipeQueryParams } from "@/types/recipe";
-import { createAsyncThunk, createSlice, type ActionReducerMapBuilder, type AsyncThunk } from "@reduxjs/toolkit";
+import type { RecipeResponse } from '@/types/recipe/Response';
+import {
+  createAsyncThunk,
+  createSlice,
+  type ActionReducerMapBuilder,
+  type AsyncThunk,
+} from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 
 type RecipeCategory = {
   isLoading: boolean;
   error: string | null;
   recipes: Recipe[];
+  totalResults: number;
+  totalPages: number;
+  limit: number;
+  page: number;
 };
 
 type SingleRecipe = {
@@ -26,6 +36,10 @@ const recipeCategory: RecipeCategory = {
   isLoading: false,
   error: null,
   recipes: [],
+  totalResults: 0,
+  totalPages: 1,
+  limit: 1,
+  page: 1,
 };
 
 type InitialState = {
@@ -58,7 +72,7 @@ const getRejectMessage = (err: unknown) => {
 };
 
 export const fetchRecipes = createAsyncThunk<
-  Recipe[],
+  RecipeResponse,
   RecipeQueryParams,
   { rejectValue: string }
 >("recipes/all", async (params, thunkAPI) => {
@@ -71,7 +85,7 @@ export const fetchRecipes = createAsyncThunk<
 });
 
 export const fetchPopularRecipes = createAsyncThunk<
-  Recipe[],
+  RecipeResponse,
   RecipeQueryParams,
   { rejectValue: string }
 >("recipes/popular", async (params, thunkAPI) => {
@@ -110,7 +124,7 @@ export const fetchRecipe = createAsyncThunk<
 });
 
 export const fetchFav = createAsyncThunk<
-  Recipe[],
+  RecipeResponse,
   RecipeQueryParams,
   { rejectValue: string }
 >("recipes/fav", async (params, thunkAPI) => {
@@ -123,7 +137,7 @@ export const fetchFav = createAsyncThunk<
 });
 
 export const fetchMy = createAsyncThunk<
-  Recipe[],
+  RecipeResponse,
   RecipeQueryParams,
   { rejectValue: string }
 >("recipes/my", async (params, thunkAPI) => {
@@ -140,7 +154,7 @@ export const addListCases = <
   Arg,
 >(
   builder: ActionReducerMapBuilder<InitialState>,
-  thunk: AsyncThunk<Recipe[], Arg, { rejectValue: string }>,
+  thunk: AsyncThunk<RecipeResponse, Arg, { rejectValue: string }>,
   key: K,
 ) => {
   builder
@@ -154,7 +168,11 @@ export const addListCases = <
     })
     .addCase(thunk.fulfilled, (state, action) => {
       state[key].isLoading = false;
-      state[key].recipes = action.payload;
+      state[key].recipes = action.payload.results;
+      state[key].totalResults = action.payload.totalResults;
+      state[key].totalPages = action.payload.totalPages;
+      state[key].limit = action.payload.limit;
+      state[key].page = action.payload.page;
     });
 };
 
@@ -183,14 +201,13 @@ const slice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-   addListCases(builder, fetchRecipes, "allRecipes");
-   addListCases(builder, fetchPopularRecipes, "popularRecipes");
-   addListCases(builder, fetchFav, "fav");
-   addListCases(builder, fetchMy, "my");
-   addSingleCases(builder, fetchTopOfDay, "topOfDay");
-   addSingleCases(builder, fetchRecipe, "recipe");
-  }
-   
+    addListCases(builder, fetchRecipes, "allRecipes");
+    addListCases(builder, fetchPopularRecipes, "popularRecipes");
+    addListCases(builder, fetchFav, "fav");
+    addListCases(builder, fetchMy, "my");
+    addSingleCases(builder, fetchTopOfDay, "topOfDay");
+    addSingleCases(builder, fetchRecipe, "recipe");
+  },
 });
 
 export const recipeSlice = slice.reducer;

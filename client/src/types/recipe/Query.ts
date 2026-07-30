@@ -3,7 +3,6 @@ import type { MainCategoryType, SubCategoryType } from '@/types/recipe/Slugs';
 export type RecipeQueryParams = {
   category?: MainCategoryType;
   subCategory?: SubCategoryType;
-  limit?: string;
 
   sort?: string;
   search?: string;
@@ -11,4 +10,7 @@ export type RecipeQueryParams = {
 
   maxTime?: string;
   maxCalories?: string;
+
+  limit?: number;
+  page?: number;
 };

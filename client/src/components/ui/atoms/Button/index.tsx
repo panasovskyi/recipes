@@ -9,6 +9,7 @@ type Props = {
   type?: "submit" | "button";
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
+  shouldShowSpinner?: boolean;
 };
 
 export type ButtonVariant =
@@ -31,6 +32,9 @@ export type ButtonVariant =
   | "btnSave"
   | "btnIcon"
   | "btnLogout"
+  | "btnPrev"
+  | "btnNext"
+  | "btnPage";
 
 export const Button: React.FC<Props> = ({
   text,
@@ -39,12 +43,14 @@ export const Button: React.FC<Props> = ({
   type = "button",
   onClick,
   disabled = false,
+  shouldShowSpinner = true,
 }) => {
   const buttonClass = isActive ? styles[variant + "__active"] : styles[variant];
   const formContext = useFormContext();
 
   const isSubmitting = formContext?.formState?.isSubmitting ?? false;
   const isButtonDisabled = disabled || isSubmitting;
+  const canShowSpinner = isButtonDisabled && shouldShowSpinner;
 
   return (
     <button
@@ -53,7 +59,7 @@ export const Button: React.FC<Props> = ({
       onClick={onClick}
       disabled={isButtonDisabled}
     >
-      {isButtonDisabled ? <Spinner /> : text}
+      {canShowSpinner ? <Spinner /> : text}
     </button>
   );
 };

@@ -5,19 +5,21 @@ import { fetchFav } from '@/store/slices';
 import { RecipesCatalog } from '@/components/ui/molecules/RecipesCatalog';
 
 export const ProfileFavoritesPage: React.FC = () => {
-  const { error, recipes, isLoading } = useAppSelector(
+  const { error, recipes, isLoading, totalPages, totalResults } = useAppSelector(
     (state) => state.recipes.fav
   );
   const dispatch = useAppDispatch();
-  const { category, subCategory, sort, search, ...filterActions } =
+  const { category, subCategory, sort, search, page, ...filterActions } =
     useRecipesFilters();
 
   useEffect(() => {
-    dispatch(fetchFav({ category, subCategory, sort, search }));
-  }, [dispatch, category, subCategory, sort, search]);
+    dispatch(fetchFav({ category, subCategory, sort, search, page }));
+  }, [dispatch, category, subCategory, sort, search, page]);
 
   return (
     <RecipesCatalog
+      count={totalResults}
+      totalPages={totalPages}
       title="Збережені рецепти"
       mainLinkTitle='Профіль'
       mainLinkHref='/profile'

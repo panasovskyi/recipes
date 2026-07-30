@@ -54,10 +54,18 @@ export type SubCategoryList = readonly SubCategoryItem[];
 
 export type MainCategoryItem = (typeof MainCategories)[number];
 
-// export type MainCategoryList = readonly MainCategoryItem[];
-
-/* export type CategoryWithSubsItem = MainCategoryItem & {
+export type CategoryWithSubsItem = MainCategoryItem & {
   sub: SubCategoryList | readonly [];
 };
- */
-// export type CategoriesWithSubsList = CategoryWithSubsItem[];
+
+export type CategoriesWithSubsList = CategoryWithSubsItem[];
+
+export const CATEGORY_MAP = new Map(
+  MainCategories.map((cat) => [cat.slug, cat.name]),
+);
+
+export const SUBCATEGORY_MAP = new Map(
+  Object.values(SubCategories)
+    .flat()
+    .map((sub) => [sub.slug, sub]),
+);

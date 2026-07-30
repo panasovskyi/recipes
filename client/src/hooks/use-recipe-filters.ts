@@ -14,6 +14,9 @@ export const useRecipesFilters = () => {
   const maxTime = searchParams.get("maxTime") as string;
   const maxCalories = searchParams.get("calories") as string;
 
+  // 💡 Читаємо page з URL для повернення з хука
+  const page = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
+
   const [searchInput, setSearchInput] = useState(
     () => searchParams.get("search") ?? "",
   );
@@ -31,6 +34,13 @@ export const useRecipesFilters = () => {
     options?: { replace?: boolean },
   ) => {
     const params = new URLSearchParams(searchParams);
+
+    // 💡 АВТОМАТИЧНЕ СКИДАННЯ СТОРІНКИ:
+    // Якщо оновлюються будь-які фільтри і параметр 'page' не передано явно,
+    // видаляємо 'page' з URL (що дорівнює поверненню на 1 сторінку).
+    if (!("page" in updates)) {
+      params.delete("page");
+    }
 
     Object.entries(updates).forEach(([key, value]) => {
       if (value) {
@@ -81,6 +91,7 @@ export const useRecipesFilters = () => {
     ingredients,
     maxTime,
     maxCalories,
+    page,
 
     selectCategory,
     resetCategory,

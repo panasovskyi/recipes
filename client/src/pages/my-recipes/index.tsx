@@ -5,19 +5,21 @@ import { fetchMy } from '@/store/slices';
 import { RecipesCatalog } from '@/components/ui/molecules/RecipesCatalog';
 
 export const ProfileMyRecipesPage: React.FC = () => {
-  const { error, recipes, isLoading } = useAppSelector(
+  const { error, recipes, isLoading, totalPages, totalResults } = useAppSelector(
     (state) => state.recipes.my
   );
   const dispatch = useAppDispatch();
-  const { category, subCategory, sort, search, ...filterActions } =
+  const { category, subCategory, sort, search, page, ...filterActions } =
     useRecipesFilters();
 
   useEffect(() => {
-    dispatch(fetchMy({category, subCategory, sort, search}));
-  }, [dispatch, category, subCategory, sort, search ]);
+    dispatch(fetchMy({ category, subCategory, sort, search, page }));
+  }, [dispatch, category, subCategory, sort, search, page ]);
 
   return (
     <RecipesCatalog
+      count={totalResults}
+      totalPages={totalPages}
       title="Мої рецепти"
       mainLinkTitle='Профіль'
       mainLinkHref='/profile'

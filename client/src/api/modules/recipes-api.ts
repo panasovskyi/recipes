@@ -1,5 +1,6 @@
 import { mainApi } from "@/api/instances";
 import type { Recipe, RecipeQueryParams } from "@/types/recipe";
+import type { RecipeResponse } from '@/types/recipe/Response';
 
 export const recipesApi = {
   async getOne(recipeId: string): Promise<Recipe> {
@@ -7,16 +8,16 @@ export const recipesApi = {
     return res.data;
   },
 
-  async getAll(params?: RecipeQueryParams): Promise<Recipe[]> {
-    const res = await mainApi.get<Recipe[]>("/recipe", {
+  async getAll(params?: RecipeQueryParams): Promise<RecipeResponse> {
+    const res = await mainApi.get<RecipeResponse>("/recipe", {
       params,
     });
 
     return res.data;
   },
 
-  async getPopular(params?: RecipeQueryParams): Promise<Recipe[]> {
-    const res = await mainApi.get<Recipe[]>("recipe/popular", {
+  async getPopular(params?: RecipeQueryParams): Promise<RecipeResponse> {
+    const res = await mainApi.get<RecipeResponse>("recipe/popular", {
       params,
     });
 
@@ -43,17 +44,17 @@ export const recipesApi = {
     return res.data;
   },
 
-  async getFav(params?: RecipeQueryParams): Promise<Recipe[]> {
-    const res = await mainApi.get<Recipe[]>("/recipe/saved", {
-      params
+  async getFav(params?: RecipeQueryParams): Promise<RecipeResponse> {
+    const res = await mainApi.get<RecipeResponse>("/recipe/saved", {
+      params,
     });
 
     return res.data;
   },
 
-  async getMy(params?: RecipeQueryParams): Promise<Recipe[]> {
-    const res = await mainApi.get("/recipe/my", {
-      params
+  async getMy(params?: RecipeQueryParams): Promise<RecipeResponse> {
+    const res = await mainApi.get<RecipeResponse>("/recipe/my", {
+      params,
     });
 
     return res.data;
