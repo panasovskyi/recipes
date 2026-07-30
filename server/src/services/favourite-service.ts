@@ -3,6 +3,31 @@ import { prisma } from '@/prisma'
 import { NutritionalValueDto } from '@/types';
 import { Prisma } from '@prisma/client';
 
+type SortOption = GetRecipesQueryDto["sort"];
+
+const compareRecipes = (
+  a: Prisma.RecipeGetPayload<{ include: typeof recipeInclude }>,
+  b: Prisma.RecipeGetPayload<{ include: typeof recipeInclude }>,
+  sort: SortOption,
+) => {
+  switch (sort) {
+    case "oldest":
+      return a.createdAt.getTime() - b.createdAt.getTime();
+    case "cookTime":
+      return a.cookTime - b.cookTime;
+    case "calories": {
+      const caloriesA =
+        (a.nutritionalValue as NutritionalValueDto | null)?.calories ?? 0;
+      const caloriesB =
+        (b.nutritionalValue as NutritionalValueDto | null)?.calories ?? 0;
+      return caloriesA - caloriesB;
+    }
+    case "newest":
+    default:
+      return b.createdAt.getTime() - a.createdAt.getTime();
+  }
+};
+
 const recipeInclude = {
   ingredients: true,
   instructions: true,
@@ -56,6 +81,9 @@ export const favouriteService = {
     params: GetRecipesQueryDto;
     userId: string;
   }) {
+    const page = params.page ?? 1;
+    const limit = params.limit ?? 10;
+
     const recipeWhere: Prisma.RecipeWhereInput = {};
 
     const categoryFilter = params.category as string | undefined;
@@ -74,6 +102,17 @@ export const favouriteService = {
         some: {
           name: { contains: params.ingredients, mode: "insensitive" },
         },
+      };
+    }
+
+    if (params.maxTime) {
+      recipeWhere.cookTime = { lte: params.maxTime };
+    }
+
+    if (params.maxCalories) {
+      recipeWhere.nutritionalValue = {
+        path: ["calories"],
+        lte: params.maxCalories,
       };
     }
 
@@ -96,29 +135,10 @@ export const favouriteService = {
       ];
     }
 
-    let recipeOrderBy: Prisma.RecipeOrderByWithRelationInput = {
-      createdAt: "desc",
-    };
-
-    if (params.sort === "newest") {
-      recipeOrderBy = { createdAt: "desc" };
-    }
-
-    if (params.sort === "oldest") {
-      recipeOrderBy = { createdAt: "asc" };
-    }
-
-    if (params.sort === "cookTime") {
-      recipeOrderBy = { cookTime: "asc" };
-    }
-
     const saved = await prisma.savedRecipe.findMany({
       where: {
         userId,
         recipe: recipeWhere,
-      },
-      orderBy: {
-        recipe: recipeOrderBy,
       },
       include: {
         recipe: {
@@ -129,17 +149,20 @@ export const favouriteService = {
 
     const recipes = saved.map((item) => item.recipe);
 
-    if (params.sort === "calories") {
-      recipes.sort((a, b) => {
-        const caloriesA =
-          (a.nutritionalValue as NutritionalValueDto | null)?.calories ?? 0;
-        const caloriesB =
-          (b.nutritionalValue as NutritionalValueDto | null)?.calories ?? 0;
+    const sorted = [...recipes].sort((a, b) =>
+      compareRecipes(a, b, params.sort),
+    );
 
-        return caloriesA - caloriesB;
-      });
-    }
+    const totalResults = sorted.length;
+    const results = sorted.slice((page - 1) * limit, page * limit);
+    const totalPages = Math.ceil(totalResults / limit);
 
-    return recipes;
+    return {
+      totalResults,
+      results,
+      totalPages,
+      limit,
+      page,
+    };
   },
 };

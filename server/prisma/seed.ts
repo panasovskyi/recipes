@@ -25,7 +25,7 @@ async function main() {
   for (const recipe of recipes) {
     await prisma.recipe.create({
       data: {
-        userId: "634ce2ad-5751-4fce-8d2d-f928652bfd3c",
+        userId: "75a9179c-543c-49ab-8ab2-dfdac698759f",
         title: recipe.title,
         slug: generateSlug(recipe.title),
         description: recipe.description,

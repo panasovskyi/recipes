@@ -13,6 +13,31 @@ const recipeInclude = {
   },
 } satisfies Prisma.RecipeInclude;
 
+type SortOption = GetRecipesQueryDto["sort"];
+
+const compareRecipes = (
+  a: Prisma.RecipeGetPayload<{ include: typeof recipeInclude }>,
+  b: Prisma.RecipeGetPayload<{ include: typeof recipeInclude }>,
+  sort: SortOption,
+) => {
+  switch (sort) {
+    case "oldest":
+      return a.createdAt.getTime() - b.createdAt.getTime();
+    case "cookTime":
+      return a.cookTime - b.cookTime;
+    case "calories": {
+      const caloriesA =
+        (a.nutritionalValue as NutritionalValueDto | null)?.calories ?? 0;
+      const caloriesB =
+        (b.nutritionalValue as NutritionalValueDto | null)?.calories ?? 0;
+      return caloriesA - caloriesB;
+    }
+    case "newest":
+    default:
+      return b.createdAt.getTime() - a.createdAt.getTime();
+  }
+};
+
 export const recipeService = {
   async create(recipe: CreateRecipeDto) {
     const newRecipe = await prisma.recipe.create({
@@ -83,6 +108,80 @@ export const recipeService = {
     let orderBy: Prisma.RecipeOrderByWithRelationInput = { createdAt: "desc" };
 
     const categoryFilter = params.category as string | undefined;
+
+    if (categoryFilter) {
+      where.mainCategory = params.category;
+    }
+
+    if (params.subCategory) {
+      where.subCategory = params.subCategory;
+    }
+
+    if (params.ingredients) {
+      where.ingredients = {
+        some: {
+          name: { contains: params.ingredients, mode: "insensitive" },
+        },
+      };
+    }
+
+    if (params.maxTime) {
+      where.cookTime = { lte: params.maxTime };
+    }
+
+    if (params.maxCalories) {
+      where.nutritionalValue = {
+        path: ["calories"],
+        lte: params.maxCalories,
+      };
+    }
+
+    if (params.search) {
+      where.OR = [
+        { title: { contains: params.search, mode: "insensitive" } },
+        { description: { contains: params.search, mode: "insensitive" } },
+        {
+          ingredients: {
+            some: { name: { contains: params.search, mode: "insensitive" } },
+          },
+        },
+      ];
+    }
+
+    const res = await prisma.recipe.findMany({
+      where,
+      orderBy,
+      include: recipeInclude,
+    });
+
+    const sorted = [...res].sort((a, b) => compareRecipes(a, b, params.sort));
+    const totalResults = sorted.length;
+    const results = sorted.slice(
+      (params.page - 1) * params.limit,
+      params.page * params.limit,
+    );
+    const totalPages = Math.ceil(totalResults / params.limit);
+
+    return {
+      totalResults,
+      results,
+      totalPages,
+      limit: params.limit,
+      page: params.page,
+    };
+  },
+
+  async getMy({
+    params,
+    userId,
+  }: {
+    params: GetRecipesQueryDto;
+    userId: string;
+  }) {
+    const where: Prisma.RecipeWhereInput = { userId };
+    let orderBy: Prisma.RecipeOrderByWithRelationInput = { createdAt: "desc" };
+
+    const categoryFilter = params.category as string | undefined;
     if (categoryFilter) {
       where.mainCategory =
         categoryFilter as Prisma.RecipeWhereInput["mainCategory"];
@@ -115,32 +214,14 @@ export const recipeService = {
     if (params.search) {
       const searchString = params.search as string;
       where.OR = [
-        {
-          title: { contains: searchString, mode: "insensitive" },
-        },
-        {
-          description: { contains: searchString, mode: "insensitive" },
-        },
+        { title: { contains: searchString, mode: "insensitive" } },
+        { description: { contains: searchString, mode: "insensitive" } },
         {
           ingredients: {
-            some: {
-              name: { contains: searchString, mode: "insensitive" },
-            },
+            some: { name: { contains: searchString, mode: "insensitive" } },
           },
         },
       ];
-    }
-
-    if (params.sort === "newest") {
-      orderBy = { createdAt: "desc" };
-    }
-
-    if (params.sort === "oldest") {
-      orderBy = { createdAt: "asc" };
-    }
-
-    if (params.sort === "cookTime") {
-      orderBy = { cookTime: "asc" };
     }
 
     const res = await prisma.recipe.findMany({
@@ -149,109 +230,47 @@ export const recipeService = {
       include: recipeInclude,
     });
 
-    if (params.sort === "calories") {
-      res.sort((a, b) => {
-        const caloriesA =
-          (a.nutritionalValue as NutritionalValueDto | null)?.calories ?? 0;
-        const caloriesB =
-          (b.nutritionalValue as NutritionalValueDto | null)?.calories ?? 0;
+    const sorted = [...res].sort((a, b) => compareRecipes(a, b, params.sort));
+    const totalResults = sorted.length;
+    const results = sorted.slice(
+      (params.page - 1) * params.limit,
+      params.page * params.limit,
+    );
+    const totalPages = Math.ceil(totalResults / params.limit);
 
-        return caloriesA - caloriesB;
-      });
-    }
-
-    return res;
+    return {
+      totalResults,
+      results,
+      totalPages,
+      limit: params.limit,
+      page: params.page,
+    };
   },
 
-  async getMy({
-    params,
-    userId,
-  }: {
-    params: GetRecipesQueryDto;
-    userId: string;
-  }) {
-    const where: Prisma.RecipeWhereInput = { userId };
-    let orderBy: Prisma.RecipeOrderByWithRelationInput = { createdAt: "desc" };
+  async getPopular(params?: GetRecipesQueryDto) {
+    const limit = params?.limit ?? 4;
+    const page = params?.page ?? 1;
 
-    const categoryFilter = params.category as string | undefined;
-    if (categoryFilter) {
-      where.mainCategory =
-        categoryFilter as Prisma.RecipeWhereInput["mainCategory"];
-    }
+    const totalResults = await prisma.recipe.count();
 
-    if (params.subCategory) {
-      where.subCategory =
-        params.subCategory as Prisma.RecipeWhereInput["subCategory"];
-    }
-
-    if (params.ingredients) {
-      where.ingredients = {
-        some: {
-          name: { contains: params.ingredients, mode: "insensitive" },
-        },
-      };
-    }
-
-    if (params.search) {
-      const searchString = params.search as string;
-      where.OR = [
-        {
-          title: { contains: searchString, mode: "insensitive" },
-        },
-        {
-          description: { contains: searchString, mode: "insensitive" },
-        },
-        {
-          ingredients: {
-            some: {
-              name: { contains: searchString, mode: "insensitive" },
-            },
-          },
-        },
-      ];
-    }
-
-    if (params.sort === "newest") {
-      orderBy = { createdAt: "desc" };
-    }
-
-    if (params.sort === "oldest") {
-      orderBy = { createdAt: "asc" };
-    }
-
-    if (params.sort === "cookTime") {
-      orderBy = { cookTime: "asc" };
-    }
-
-    const res = await prisma.recipe.findMany({
-      where,
-      orderBy,
-      include: recipeInclude,
-    });
-
-    if (params.sort === "calories") {
-      res.sort((a, b) => {
-        const caloriesA =
-          (a.nutritionalValue as NutritionalValueDto | null)?.calories ?? 0;
-        const caloriesB =
-          (b.nutritionalValue as NutritionalValueDto | null)?.calories ?? 0;
-
-        return caloriesA - caloriesB;
-      });
-    }
-
-    return res;
-  },
-
-  async getPopular() {
-    const res = await prisma.recipe.findMany({
-      take: 4,
+    const results = await prisma.recipe.findMany({
+      take: limit,
+      skip: (page - 1) * limit,
       orderBy: {
         createdAt: "desc",
       },
+      include: recipeInclude,
     });
 
-    return res;
+    const totalPages = Math.ceil(totalResults / limit);
+
+    return {
+      totalResults,
+      results,
+      totalPages,
+      limit,
+      page,
+    };
   },
 
   async getRecipeOfDay() {

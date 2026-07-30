@@ -54,14 +54,14 @@ export class CreateRecipeDto {
     };
 
     this.ingredients = parseJson(body.ingredients) || [];
-
- /*    const steps = body.cookingSteps || body.instructions;
-    this.cookingSteps = parseJson(steps) || []; */
     this.cookingSteps = parseJson(body.cookingSteps) || [];
 
     this.imageUrl = body.imageUrl || null;
   }
 }
+
+const DEFAULT_LIMIT = 3;
+const MAX_LIMIT = 48;
 
 export class GetRecipesQueryDto {
   category?: MainCategory;
@@ -71,6 +71,9 @@ export class GetRecipesQueryDto {
   maxCalories?: number;
   maxTime?: number;
   sort?: "newest" | "oldest" | "cookTime" | "calories";
+
+  limit: number;
+  page: number;
 
   constructor(query: any) {
     const rawCategory = query.category || query.mainCategory;
@@ -84,7 +87,7 @@ export class GetRecipesQueryDto {
     this.ingredients = query.ingredients
       ? String(query.ingredients).trim()
       : undefined;
-    
+
     this.maxTime = query.maxTime ? Number(query.maxTime) : undefined;
     this.maxCalories = query.maxCalories
       ? Number(query.maxCalories)
@@ -93,5 +96,13 @@ export class GetRecipesQueryDto {
     this.sort = query.sort
       ? (query.sort as GetRecipesQueryDto["sort"])
       : "newest";
+
+    const parsedLimit = Number(query.limit);
+    this.limit =
+      Number.isFinite(parsedLimit) && parsedLimit > 0
+        ? Math.min(parsedLimit, MAX_LIMIT)
+        : DEFAULT_LIMIT;
+    const parsedPage = Number(query.page);
+    this.page = Number.isFinite(parsedPage) && parsedPage >= 1 ? parsedPage : 1;
   }
 }

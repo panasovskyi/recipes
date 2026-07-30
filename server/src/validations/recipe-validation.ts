@@ -155,5 +155,8 @@ export const getRecipesQuerySchema = z.object({
       .string()
       .regex(/^[0-9]+$/, "maxCalories має бути числом")
       .optional(),
+
+    limit: z.string().regex(/^\d+$/, "Ліміт має бути числом").optional(),
+    offset: z.string().regex(/^\d+$/, "Offset має бути числом").optional(),
   }),
 });
