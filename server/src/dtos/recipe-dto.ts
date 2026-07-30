@@ -60,8 +60,8 @@ export class CreateRecipeDto {
   }
 }
 
-const DEFAULT_LIMIT = 3;
-const MAX_LIMIT = 48;
+const DEFAULT_LIMIT = 9;
+const MAX_LIMIT = 45;
 
 export class GetRecipesQueryDto {
   category?: MainCategory;
