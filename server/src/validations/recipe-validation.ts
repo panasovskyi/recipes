@@ -84,8 +84,6 @@ export const createRecipeSchema = z.object({
       { message: "Харчова цінність (БЖУ) є обов'язковою" },
     ),
 
-    // image: z.string().optional().nullable().or(z.literal("")),
-
     ingredients: z
       .array(
         z.object({
@@ -157,6 +155,6 @@ export const getRecipesQuerySchema = z.object({
       .optional(),
 
     limit: z.string().regex(/^\d+$/, "Ліміт має бути числом").optional(),
-    offset: z.string().regex(/^\d+$/, "Offset має бути числом").optional(),
+    page: z.string().regex(/^\d+$/, "Сторінка має бути числом").optional(),
   }),
 });

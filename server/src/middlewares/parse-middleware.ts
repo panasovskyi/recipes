@@ -17,9 +17,5 @@ export const parseFormDataJson = (
     }
   });
 
-  /* if (req.body.cookingSteps && !req.body.instructions) {
-    req.body.instructions = req.body.cookingSteps;
-  } */
-
   next();
 };
