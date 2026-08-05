@@ -78,17 +78,7 @@ export const recipeService = {
   async getById({ userId, recipeId }: { userId?: string; recipeId: string }) {
     const res = await prisma.recipe.findUnique({
       where: { id: recipeId },
-      include: {
-        ingredients: true,
-        instructions: true,
-        user: {
-          select: {
-            id: true,
-            email: true,
-            login: true,
-          },
-        },
-      },
+      include: recipeInclude,
     });
 
     if (!res) return null;
@@ -247,29 +237,25 @@ export const recipeService = {
     };
   },
 
-  async getPopular(params?: GetRecipesQueryDto) {
-    const limit = params?.limit ?? 4;
-    const page = params?.page ?? 1;
-
+  async getPopular() {
     const totalResults = await prisma.recipe.count();
-
     const results = await prisma.recipe.findMany({
-      take: limit,
-      skip: (page - 1) * limit,
+      take: 4,
+      skip: 0,
       orderBy: {
         createdAt: "desc",
       },
       include: recipeInclude,
     });
 
-    const totalPages = Math.ceil(totalResults / limit);
+    const totalPages = 1;
 
     return {
       totalResults,
       results,
       totalPages,
-      limit,
-      page,
+      limit: 4,
+      page: 1,
     };
   },
 
