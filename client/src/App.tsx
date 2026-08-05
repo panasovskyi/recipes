@@ -4,7 +4,6 @@ import { RegistrationPage } from '@/pages/registration';
 import { RecipeDetailsPage } from '@/pages/recipe-details';
 import { CategoriesPage } from '@/pages/categories';
 import { HomePage } from '@/pages/home';
-//import { RecipesPage } from '@/pages/recipes';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { LoginPage } from '@/pages/login';
@@ -46,28 +45,23 @@ function App() {
 
       <main className={styles.mainContent}>
         <Routes>
-          {/* 🌍 1. ЗАГАЛЬНОДОСТУПНІ РОУТИ (Доступні всім) */}
           <Route path="/" element={<HomePage />} />
           <Route path="/categories" element={<CategoriesPage />} />
           <Route path="/categories/:categorySlug" element={<CategoriesPage />} />
           <Route path="/recipes" element={<RecipesPage />} />
           <Route path="/recipes/:recipeId" element={<RecipeDetailsPage />} />
 
-          {/* 🚫 2. РОУТИ ТІЛЬКИ ДЛЯ ГОСТЕЙ (Недоступні, якщо залогінений) */}
           <Route element={<PublicOnlyRoute />}>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/registration" element={<RegistrationPage />} />
           </Route>
 
-          {/* 🔒 3. ПРИВАТНІ РОУТИ (Тільки для залогінених) */}
           <Route element={<ProtectedRoute />}>
             <Route path="/create-recipe" element={<CreateRecipePage />} />
 
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/profile/saved-recipes" element={<ProfileFavoritesPage />} />
             <Route path="/profile/my-recipes" element={<ProfileMyRecipesPage />} />
-            {/* <Route path="/profile/settings" element={<ProfileSettingsPage />} />
-            <Route path="/profile/my-recipes" element={<MyRecipesPage />} /> */}
           </Route>
 
           <Route path="*" element={<div>Сторінку не знайдено (404)</div>} />

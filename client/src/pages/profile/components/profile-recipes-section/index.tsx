@@ -5,7 +5,6 @@ import { EmptyState } from "@/components/ui/molecules/EmptyState";
 import { ErrorState } from "@/components/ui/molecules/ErrorState";
 import { Spinner } from "@/components/ui/atoms/Spinner";
 import styles from "./ProfileRecipesSection.module.scss";
-import { useAppSelector } from '@/store';
 
 const PREVIEW_LIMIT = 3;
 
@@ -19,11 +18,13 @@ type Props = {
   emptyText: string;
   emptyButtonText?: string;
   onEmptyButtonClick?: () => void;
+  totalResults: number;
 };
 
 export const ProfileRecipesSection: React.FC<Props> = ({
   title,
   recipes,
+  totalResults,
   isLoading,
   error,
   viewAllTo,
@@ -32,7 +33,6 @@ export const ProfileRecipesSection: React.FC<Props> = ({
   emptyButtonText,
   onEmptyButtonClick,
 }) => {
-  const { totalResults } = useAppSelector(state => state.recipes.fav);
   const previewRecipes = recipes.slice(0, PREVIEW_LIMIT);
 
   return (

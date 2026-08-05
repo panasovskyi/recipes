@@ -26,6 +26,7 @@ export const ProfilePage = () => {
 
       <div className={styles.content}>
         <ProfileRecipesSection
+          totalResults={myRecipes.totalResults}
           title="Мої рецепти"
           recipes={myRecipes.recipes}
           isLoading={myRecipes.isLoading}
@@ -38,6 +39,7 @@ export const ProfilePage = () => {
         />
 
         <ProfileRecipesSection
+          totalResults={favRecipes.totalResults}
           title="Обрані рецепти"
           recipes={favRecipes.recipes}
           isLoading={favRecipes.isLoading}

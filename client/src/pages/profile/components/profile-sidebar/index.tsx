@@ -48,12 +48,6 @@ export const ProfileSidebar = () => {
               disabled
             />
           </FormField>
-{/*         <Button
-          type="submit"
-          text="Зберегти зміни"
-          variant="btnPrimary"
-          disabled
-        /> */}
       </form>
       </FormProvider>
       <Button

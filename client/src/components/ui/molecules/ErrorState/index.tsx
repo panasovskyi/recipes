@@ -2,19 +2,12 @@ import React from "react";
 import styles from "./ErrorState.module.scss";
 
 type ErrorStateProps = {
-  /** Заголовок помилки */
   title?: string;
-  /** Текст помилки або деталі */
   message?: string | null;
-  /** Емодзі або іконка */
   icon?: string;
-  /** Текст для кнопки повторної спроби */
   retryText?: string;
-  /** Функція повторно запиту (якщо передана — з'явиться кнопка) */
   onRetry?: () => void;
-  /** Компактний режим для маленьких блоків/карток */
   compact?: boolean;
-  /** Додатковий кастомний клас */
   className?: string;
 };
 
