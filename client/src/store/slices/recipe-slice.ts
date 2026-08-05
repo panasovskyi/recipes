@@ -86,11 +86,11 @@ export const fetchRecipes = createAsyncThunk<
 
 export const fetchPopularRecipes = createAsyncThunk<
   RecipeResponse,
-  RecipeQueryParams,
+  void,
   { rejectValue: string }
->("recipes/popular", async (params, thunkAPI) => {
+>("recipes/popular", async (_, thunkAPI) => {
   try {
-    const res = await api.recipes.getPopular(params);
+    const res = await api.recipes.getPopular();
     return res;
   } catch (err: unknown) {
     return thunkAPI.rejectWithValue(getRejectMessage(err));

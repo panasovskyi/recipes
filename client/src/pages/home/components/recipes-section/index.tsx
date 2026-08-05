@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import styles from './RecipesSection.module.scss';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { Spinner } from '@/components/ui/atoms/Spinner';
@@ -14,7 +13,7 @@ export const RecipesSection = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchPopularRecipes({}));
+    dispatch(fetchPopularRecipes());
   }, [dispatch]);
 
 
@@ -22,9 +21,6 @@ export const RecipesSection = () => {
     <section className={styles.recipesSection}>
       <div className={styles.sectionHeader}>
         <h2>Популярні рецепти</h2>
-        <Link to="/recipes" className={styles.seeAllLink}>
-          Дивитися всі →
-        </Link>
       </div>
 
       {isLoading && <Spinner size='md' />}

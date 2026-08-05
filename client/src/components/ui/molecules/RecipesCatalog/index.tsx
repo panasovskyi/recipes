@@ -81,11 +81,13 @@ export const RecipesCatalog: React.FC<RecipesCatalogProps> = ({
         />
       </div>
 
-      <div className={styles.paginationWrapper}>
-        <Pagination
-          totalPages={totalPages}
-        />
-      </div>
+      {!isLoading && !error && recipes.length > 0 && (
+        <div className={styles.paginationWrapper}>
+          <Pagination
+            totalPages={totalPages}
+          />
+        </div>
+      )}
     </div>
   );
 };

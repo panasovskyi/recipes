@@ -16,10 +16,8 @@ export const recipesApi = {
     return res.data;
   },
 
-  async getPopular(params?: RecipeQueryParams): Promise<RecipeResponse> {
-    const res = await mainApi.get<RecipeResponse>("recipe/popular", {
-      params,
-    });
+  async getPopular(): Promise<RecipeResponse> {
+    const res = await mainApi.get<RecipeResponse>("recipe/popular");
 
     return res.data;
   },
