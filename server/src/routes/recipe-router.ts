@@ -7,7 +7,11 @@ import {
   validate,
 } from "@/middlewares";
 import { errorCatcher } from "@/utils";
-import { createRecipeSchema, getRecipeSchema, getRecipesQuerySchema } from "@/validations";
+import {
+  createRecipeSchema,
+  getRecipeSchema,
+  getRecipesQuerySchema,
+} from "@/validations";
 import { Router } from "express";
 
 export const recipeRouter = Router();
@@ -19,6 +23,7 @@ recipeRouter.get(
 recipeRouter.get(
   "/recipe/my",
   authMiddleware,
+  validate(getRecipesQuerySchema),
   errorCatcher(recipeController.getMy),
 );
 recipeRouter.get("/recipe/popular", errorCatcher(recipeController.getPopular));
@@ -36,5 +41,9 @@ recipeRouter.post(
   errorCatcher(recipeController.create),
 );
 
-recipeRouter.get("/recipe/:recipeId", optionalAuthMiddleware, validate(getRecipeSchema) ,errorCatcher(recipeController.getOne));
-
+recipeRouter.get(
+  "/recipe/:recipeId",
+  optionalAuthMiddleware,
+  validate(getRecipeSchema),
+  errorCatcher(recipeController.getOne),
+);
