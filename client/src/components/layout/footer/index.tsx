@@ -9,9 +9,9 @@ const EXPLORE_LINKS = [
 ];
 
 const INFO_LINKS = [
-  { to: "/about", label: "Про проєкт" },
-  { to: "/contacts", label: "Контакти" },
-  { to: "/privacy", label: "Політика конфіденційності" },
+  { to: "/", label: "Про проєкт" },
+  { to: "/", label: "Контакти" },
+  { to: "/", label: "Політика конфіденційності" },
 ];
 
 export const Footer = () => {

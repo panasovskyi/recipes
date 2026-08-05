@@ -25,7 +25,6 @@ export const Hero = () => {
       label: "Калорійність:",
       value: `${recipe?.nutritionalValue.calories} ккал`,
     },
-    { id: 3, label: "Складність:", value: "N/A" },
   ];
 
   if (error) {
