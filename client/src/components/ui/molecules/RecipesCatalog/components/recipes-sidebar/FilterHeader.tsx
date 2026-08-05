@@ -6,7 +6,6 @@ type Props = {
   onReset: () => void;
 };
 
-
 export const FilterHeader: React.FC<Props> = ({ onReset }) => {
   const [searchParams] = useSearchParams();
 
