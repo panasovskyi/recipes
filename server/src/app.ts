@@ -4,6 +4,7 @@ import { errorMiddleware } from '@/middlewares';
 import { authRouter, recipeRouter, favouriteRouter } from "@/routes";
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
+import helmet from 'helmet';
 
 dotenv.config()
 
@@ -11,6 +12,7 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 
+app.use(helmet());
 app.use(
   cors({
     origin: process.env.CLIENT_URL || "http://localhost:5173",

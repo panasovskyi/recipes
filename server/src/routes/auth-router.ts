@@ -1,20 +1,22 @@
-import { authController } from '@/controllers';
-import { validate } from '@/middlewares';
-import { errorCatcher } from '@/utils';
+import { authController } from "@/controllers";
+import { authRateLimiter, validate } from "@/middlewares";
+import { errorCatcher } from "@/utils";
 import { loginSchema, registerSchema } from "@/validations";
-import { Router } from 'express';
+import { Router } from "express";
 
 export const authRouter = Router();
 
 authRouter.post(
   "/register",
+  authRateLimiter,
   validate(registerSchema),
   errorCatcher(authController.register),
 );
 
 authRouter.post(
   "/login",
-   validate(loginSchema),
+  authRateLimiter,
+  validate(loginSchema),
   errorCatcher(authController.login),
 );
 
