@@ -1,77 +1,74 @@
-# React + TypeScript + Vite
+# Смакота — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React frontend for the Смакота recipe platform.
 
-Currently, two official plugins are available:
+## Tech stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19** + **TypeScript**
+- **Vite** — build tool / dev server
+- **Redux Toolkit** — global state (recipes, auth)
+- **React Hook Form** + **Zod** — forms and validation
+- **React Router** — routing, including protected/public-only routes
+- **Axios** — HTTP client, with interceptors for attaching the JWT access token and silently refreshing it on 401
+- **use-debounce** — debounced search input
+- **SCSS Modules** — styling, with shared design tokens (`_variables.scss`) and breakpoint mixins
 
-## React Compiler
-
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Architecture
 
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+components/
+  layout/      → Header, Footer, Logo (site-wide structure)
+  ui/
+    atoms/     → Button, Input, Checkbox, Radio, Spinner... (dumb, reusable)
+    molecules/ → EmptyState, RecipeCard, RecipesGrid, FormField, Pagination...
+pages/         → one folder per route, with page-local sub-components
+store/         → Redux Toolkit slices (auth, recipes)
+api/           → axios instance + one module per resource (recipes, auth)
+hooks/         → shared hooks (auth state, search redirects, pagination)
+types/         → domain types, kept in sync with the backend's DTOs/enums
 ```
+
+Naming convention: PascalCase folders for reusable `ui/` components (folder name = exported component name), kebab-case for feature/page-specific folders.
+
+## Getting started
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Set up environment variables
+
+```bash
+cp .env.example .env
+```
+
+| Variable        | Description                                  |
+| --------------- | --------------------------------------------- |
+| `VITE_API_URL`  | Base URL of the backend API (e.g. `http://localhost:5000/api` locally, or the deployed backend URL) |
+
+### 3. Run the dev server
+
+```bash
+npm run dev
+```
+
+The app will be available at `http://localhost:5173` (default Vite port).
+
+### 4. Build for production
+
+```bash
+npm run build
+npm run preview   # optional — preview the production build locally
+```
+
+## Auth
+
+- Access token is kept in Redux (in memory), **not** in `localStorage` — refreshed automatically via an httpOnly cookie on page load and on 401 responses.
+- Route guards: `ProtectedRoute` (requires auth, redirects to `/login` otherwise) and `PublicOnlyRoute` (login/registration pages, redirects away if already authenticated).
+
+## Deployment notes
+
+- Deployed on [Render](https://render.com) as a Static Site, root directory set to `client/`, build command `npm run build`, publish directory `dist`.
+- Set `VITE_API_URL` as a build-time environment variable on Render — it's baked into the build, not read at runtime.
