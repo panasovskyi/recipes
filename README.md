@@ -2,7 +2,7 @@
 
 A full-stack recipe platform where users can browse, search, and save recipes, filter by ingredients they already have, and share their own recipes with the community.
 
-🔗 [**Live demo:**](https://recipes-client-o55b.onrender.com/)
+🔗 [**Live demo**](https://recipes-client-o55b.onrender.com/)
 
 ## What it does
 
